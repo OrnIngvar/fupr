@@ -7,6 +7,10 @@
 -- False || False = False
 -- _ || _ = True
 
+fall x y = if x == False && y == False
+	then False
+	else True
+
 -- b) Redefine the following version of the disjunction operator using conditional
 -- expressions rather than pattern matching:
 -- False || b = b
