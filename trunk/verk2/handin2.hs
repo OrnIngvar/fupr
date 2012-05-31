@@ -1,5 +1,5 @@
 -- Authors: Davíð Halldór Lúðvíksson and Örn Ingvar Ásbjörnsson
--- Handin 1
+-- Handin 2
 
 -- Exercise 1
 -- a) Redefine the following version of the disjunction operator using conditional
@@ -7,7 +7,7 @@
 -- False || False = False
 -- _ || _ = True
 
-fall x y = if x == False && y == False
+x `or_operator` y = if x == False && y == False
 	then False
 	else True
 
@@ -16,8 +16,14 @@ fall x y = if x == False && y == False
 -- False || b = b
 -- True || _ = True
 
+x `or_operator'` y = if x == False
+	then y
+	else if x == True
+		then True
+
 -- c) Define the function myTakeWhile which behaves like takeWhile, except
 -- that it is defined using conditional expressions only.
+
 
 -- d) Define the function myElem which behaves just like the function elem.
 -- Define it using
