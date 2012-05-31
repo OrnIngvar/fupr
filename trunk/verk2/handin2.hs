@@ -16,14 +16,15 @@ x `or_operator` y = if x == False && y == False
 -- False || b = b
 -- True || _ = True
 
-x `or_operator'` y = if x == False
-	then y
-	else if x == True
-		then True
+x `or_op` y = 
+	if x == False
+		then y
+		else if x == True
+			then True
+			else True 
 
 -- c) Define the function myTakeWhile which behaves like takeWhile, except
 -- that it is defined using conditional expressions only.
-
 
 -- d) Define the function myElem which behaves just like the function elem.
 -- Define it using
