@@ -7,40 +7,67 @@
 -- False || False = False
 -- _ || _ = True
 
-x `or_operator` y = if x == False && y == False
-	then False
-	else True
+-- x `or_operator` y = if x == False && y == False
+--	then False
+--	else True
 
 -- b) Redefine the following version of the disjunction operator using conditional
 -- expressions rather than pattern matching:
 -- False || b = b
 -- True || _ = True
 
-x `or_op` y = 
-	if x == False
-		then y
-		else if x == True
-			then True
-			else True 
+-- x `or_op` y = 
+--	if x == False
+--		then y
+--		else if x == True
+--			then True
+--			else True 
 
 -- c) Define the function myTakeWhile which behaves like takeWhile, except
 -- that it is defined using conditional expressions only.
 
+-- myTakeWhile xs p = [ x | x <- xs, x < p ]
+
 -- d) Define the function myElem which behaves just like the function elem.
 -- Define it using
 -- i) Conditional expressions only (call this version myElem1),
+
+-- myElem1 :: Eq a => [a] -> a -> Bool
+-- myElem1 xs p =
+-- 	if xs == []
+--		then False
+--		else if (xs !! 0) == p
+--			then True
+--			else myElem1 (tail xs) p
+
 -- ii) Pattern matching and conditionals only (call this version myElem2),
+
+-- myElem2 :: Eq a => [a] -> a -> Bool
+-- myElem2 xs p
+--	| xs == [] 		 = False
+--	| (xs !! 0) == p = True
+--	| otherwise 	 = myElem1 (tail xs) p
+
 -- iii) Guards and pattern matching (call this version myElem3),
+
+-- myElem3 :: (Eq a) => a -> [a] -> Bool
+-- myElem3 a [] = False
+-- myElem3	a (x:xs)
+--	| a == x    = True  
+--   | otherwise = a `myElem3` xs 
+
 -- iv) foldl or foldr, without using conditionals, pattern matching, guards,
 -- or recursion (call this version myElem4)
 
+
+
 -- 2a)
-quicksort :: (Ord a) => [a] -> [a]  
-quicksort [] = []  
-quicksort (x:xs) =   
-    let smallerSorted = quicksort [a | a <- xs, a <= x]  
-        biggerSorted = quicksort [a | a <- xs, a > x]  
-    in  smallerSorted ++ [x] ++ biggerSorted
+-- quicksort :: (Ord a) => [a] -> [a]  
+-- quicksort [] = []  
+-- quicksort (x:xs) =   
+    -- let smallerSorted = quicksort [a | a <- xs, a <= x]  
+        -- biggerSorted = quicksort [a | a <- xs, a > x]  
+    -- in  smallerSorted ++ [x] ++ biggerSorted
 
 -- [3,2,8,6,1,5,4,7]
 -- on first run of quicksort smallerSorted becomes :
@@ -90,6 +117,6 @@ quicksort (x:xs) =
 	--	([x] ++ a, [y] ++ b)
 
 -- 3b)
-lettersOnly  ::  String -> String
-lettersOnly  "" = "Empty"
-lettersOnly (x:xs) = filter ( `elem` ['a'..'z']) (x:xs)
+--lettersOnly  ::  String -> String
+--lettersOnly  "" = "Empty"
+--lettersOnly (x:xs) = filter ( `elem` ['a'..'z']) (x:xs)
