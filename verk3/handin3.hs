@@ -92,11 +92,13 @@ main = do
 --stackSort :: (Ord a) => [a] -> [a]
 
 --IMPLEMENTATION ÚR H2!!! EKKI SKILA ÓBREYTTU
- --stackBubble :: (Ord a) => [a] -> [a]
- --stackBubble [x] = [x]
- --stackBubble (x:y:xs) = if x < y
- --                       then x : stackBubble(y:xs)
- --                       else y : stackBubble(x:xs)
+
+stackBubble (xs:[]) = [xs]
+stackBubble (x:y:rest) = (min x y) : (stackBubble ((max x y):rest))
+
+stackSort x | x==rest = rest
+	| otherwise = stackSort rest
+	where rest = stackBubble x
 
   --stackSort :: (Ord a) => [a] -> [a]
 
