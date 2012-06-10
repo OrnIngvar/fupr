@@ -15,7 +15,7 @@ import Data.Char
 --Hint: To test backforth, use take.
 backForth :: [a] -> [a]
 backForth [] = []
-backForth xs = cycle xs
+backForth xs = xs ++ reverse (init xs) ++ backForth xs
 
 
 --b) Implement the input-output function main which accepts 1 line of input,
