@@ -64,11 +64,22 @@ main = do
 --21 <-- user input
 --bingo.
 -- >
---main :: IO ()
---main = do
---    putStrLn( "make a guess between 0 and 100" )
---    input <- getLine
---    putStrLn( "lower" )
+main :: IO ()
+main = do
+    let (randNumber, newGen) = randomR (1,100) (mkStdGen 359353) :: (Int, StdGen)
+    putStr "make a guess between 0 and 100 "
+    numberString <- getLine
+    let number = read numberString
+    if randNumber == number
+    then putStrLn "bingo!"
+    else when (not $ number == randNumber) $ do
+        putStrLn $ checkForNumber randNumber number
+
+checkForNumber :: (Integral a) => a -> a -> String
+checkForNumber a b
+    | a < b = "lower."
+    | a > b = "higer."
+    | otherwise = "bingo!"
 
 --Exercise 3
 --Using techniques and standard library functions you have learned about in
