@@ -1,6 +1,9 @@
 -- Authors: Davíð Halldór Lúðvíksson and Örn Ingvar Ásbjörnsson
 -- Handin 3
 
+import System.IO
+import Data.Char
+
 --Exercise 1
 --a) Implement the function backforth which, when given a list of elements
 --[a, b, ..., y, z],
@@ -10,6 +13,11 @@
 --and backforth [1] = [1,1,1,...].
 --backforth :: [a] -> [a]
 --Hint: To test backforth, use take.
+backForth :: [a] -> [a]
+backForth [] = []
+backForth xs = cycle xs
+
+
 --b) Implement the input-output function main which accepts 1 line of input,
 --and returns that line, in upper case.
 --main :: IO ()
@@ -18,6 +26,12 @@
 -- main
 --Flesh-eating Zombies!
 --FLESH-EATING ZOMBIES!
+
+main :: IO ()
+main = do
+  txt <- getLine
+  let bigTxt = map toUpper txt
+  putStrLn (  bigTxt  )
 
 --1
 --Exercise 2 (High-Low)
@@ -50,6 +64,12 @@
 --21 <-- user input
 --bingo.
 -- >
+--main :: IO ()
+--main = do
+--    putStrLn( "make a guess between 0 and 100" )
+--    input <- getLine
+--    putStrLn( "lower" )
+
 --Exercise 3
 --Using techniques and standard library functions you have learned about in
 --this course so far, solve the following implementation exercises. Do not
@@ -70,7 +90,19 @@
 --repeated application of stackBubble.
 --stackBubble :: (Ord a) => [a] -> [a]
 --stackSort :: (Ord a) => [a] -> [a]
+
+--IMPLEMENTATION ÚR H2!!! EKKI SKILA ÓBREYTTU
+ --stackBubble :: (Ord a) => [a] -> [a]
+ --stackBubble [x] = [x]
+ --stackBubble (x:y:xs) = if x < y
+ --                       then x : stackBubble(y:xs)
+ --                       else y : stackBubble(x:xs)
+
+  --stackSort :: (Ord a) => [a] -> [a]
+
 --Exercise 4 (Presentation!)
 --Pick a problem (not too easy!) from the site http://www.haskell.org/
 --haskellwiki/99_questions to present to the class during on June 12 or
 --June 14.
+
+
