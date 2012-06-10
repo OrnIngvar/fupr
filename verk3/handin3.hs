@@ -9,7 +9,7 @@ import System.Random
 --a)
 backForth :: [a] -> [a]
 backForth [] = []
-backForth xs = xs ++ reverse (init xs) ++ backForth xs
+backForth (x:xs) = (x:xs) ++ tail (reverse (x:xs)) ++ tail (backForth (x:xs))
 
 
 --b)
