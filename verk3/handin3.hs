@@ -61,3 +61,10 @@ stackSort x
 --Pick a problem (not too easy!) from the site http://www.haskell.org/
 --haskellwiki/99_questions to present to the class during on June 12 or
 --June 14.
+
+-- 10 Problem 20
+-- (*) Remove the K'th element from a list.
+
+removeAt _ []                 = []
+removeAt x (y:ys) | x == y    = removeAt x ys
+                  | otherwise = y : removeAt x ys
