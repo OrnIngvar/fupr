@@ -3,6 +3,8 @@
 
 import System.IO
 import Data.Char
+import System.Random
+import Control.Monad(when)
 
 --Exercise 1
 --a) Implement the function backforth which, when given a list of elements
