@@ -65,8 +65,10 @@ stackSort x
 -- 10 Problem 20
 -- (*) Remove the K'th element from a list.
 
---removeAt x []                 = (Nothing, [])
---removeAt x (y:ys) | x == y    = (x, removeAt x ys)
---                  | otherwise = (x, (y : removeAt x ys))
+removeAt :: Int -> [a] -> (Maybe a, [a])
+removeAt _ []                 = (Nothing, [])
+removeAt x (y:ys) | x == 1    = (Just y, ys)
+                  | otherwise = let (front, back) = removeAt (x-1) ys in (front, y:back)
 
-removeAt n xs = (xs!!n,take n xs ++ drop (n+1) xs)
+-- let (a, r) = removeAt (k - 1) xs in (a, x:r)
+--removeAt n xs = (xs!!n,take n xs ++ drop (n+1) xs)
