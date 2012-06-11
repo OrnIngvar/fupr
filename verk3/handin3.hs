@@ -65,6 +65,14 @@ stackSort x
 -- 10 Problem 20
 -- (*) Remove the K'th element from a list.
 
+-- This function takes index of element in list and removes it from the list and adds the 
+-- result to touple
+-- If we get out-of bound index it wil return Nothing as first value and the original list
+-- as the second value in the touple
+-- If the index (x) is one then the head item (y) will be returned as the rest of the list
+-- in the touple
+-- Otherwise two variables are created in the touple which calls recursive and with one
+-- value lower index and the tail but adds the head to the second touple list value.
 removeAt :: Int -> [a] -> (Maybe a, [a])
 removeAt _ []                 = (Nothing, [])
 removeAt x (y:ys) | x == 1    = (Just y, ys)
