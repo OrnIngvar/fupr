@@ -49,17 +49,17 @@ queueSort :: (Ord a) => [a] -> [a]-}
 Extend the function solveRPN from Chapter 10 in the book to accept more
 functions in the input string. Implement at least -,/,sum,average,max,min
 and then your favorite function.-}
-solveRPN :: String -> Float -- BANNAÐ AÐ GERA TAB!!!!!!!!!!!!!!!!!!!!!
-solveRPN = head . foldl eitthvadFall [] . words
-    where eitthvadFall (x:y:ys) "*" = (x * y):ys
-          eitthvadFall (x:y:ys) "+" = (x + y):ys
-          eitthvadFall (x:y:ys) "-" = (y - x):ys
-          eitthvadFall (x:y:ys) "/" = (y / x):ys          
-          --eitthvadFall xs "average" = [sum xs] / genericLength xs
-          eitthvadFall xs "max" = [maximum xs]
-          eitthvadFall xs "min" = [minimum xs]
-          eitthvadFall xs "sum" = [sum xs]
-          eitthvadFall ys numString = read numString:ys
+solveRPN :: String -> Float
+solveRPN = head . foldl functionSolver [] . words
+    where functionSolver (x:y:ys) "*" = (x * y):ys
+          functionSolver (x:y:ys) "+" = (x + y):ys
+          functionSolver (x:y:ys) "-" = (y - x):ys
+          functionSolver (x:y:ys) "/" = (y / x):ys          
+          functionSolver xs "average" = [sum xs / genericLength xs]
+          functionSolver xs "max" = [maximum xs]
+          functionSolver xs "min" = [minimum xs]
+          functionSolver xs "sum" = [sum xs]
+          functionSolver ys numString = read numString:ys
 
 
 {-Exercise 4 (Extending the Heathrow To London Problem)
