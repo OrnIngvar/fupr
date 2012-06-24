@@ -37,6 +37,7 @@ toPercentage xs = [(fst x, snd x / total * 100)| x <- xs]
 
 totalLetters s = sum [snd x | x <- s]
 
+--TODO: Veit ekki hvernig ég get mappað xs við freqTable en prósenturnar fyrir hvern staf eru komnar 
 mapToFreqTable xs = [ (fst x, snd x) | x <- xs]
 
 -- usage: mapToFreqTable $ toPercentage $ wordFreq $ encode 2 "helloworld"
@@ -70,8 +71,8 @@ queue :: (Ord a) => [a] -> [a]
 queueSort :: (Ord a) => [a] -> [a]-}
 
 queue :: (Ord a) => [a] -> [a]
-queue [] = []
-queue (x:xs) = xs ++ [x]
+queue lst = reverse $ tail $ reverse lst
+
 
 {-Exercise 3 (Extending the Reverse Polish Notation Calculator)
 Extend the function solveRPN from Chapter 10 in the book to accept more
