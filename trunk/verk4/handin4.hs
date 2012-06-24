@@ -39,7 +39,7 @@ totalLetters s = sum [snd x | x <- s]
 
 mapToFreqTable xs = [ (fst y, snd y) | x <- xs, y <- freqTable]
 
--- usage: freqTable $ toPercentage $ wordFreq $ encode 2 "helloworld" 
+-- usage: mapToFreqTable $ toPercentage $ wordFreq $ encode 2 "helloworld"
 {-
 
 b) Assume that the encoded text contains common words such as “is”, “and”,
