@@ -76,36 +76,50 @@ b) Three-dimensional helicopter routes (A,B,D,E) connected with crossroads
 E, C4 between E and A). Your implementation should accept the input
 type RoadSystem = [Section] where Section contains five integers,
 the lengths of A,B,D,E,C1,C2,C3,C4 respectively.-}
-data Section = Section { getA :: Int, getB :: Int, getC :: Int } deriving (Show)
+--Exercise 4
+--a)
+data Section = Section { getA :: Int, getB :: Int, getD :: Int, getC1 :: Int, getC2 :: Int } deriving (Show)
 type RoadSystem = [Section]
 
 heathrowToLondon :: RoadSystem
-heathrowToLondon = [ Section 50 10 30, Section 5 90 20, Section 40 2 25, Section 10 8 0 ]
+heathrowToLondon = [ Section 50 10 35 30 25, Section 5 90 45 20 35, Section 40 2 15 25 18, Section 10 20 8 0 0 ]
 
-data Label = A | B | C deriving (Show)
+data Label = A | B | D | C1 | C2 deriving (Show)
 type Path = [(Label,Int)]
 
 optimalPath :: RoadSystem -> Path
 optimalPath roadSystem
-              | sum ( map snd bestPathA ) <= sum ( map snd bestPathB ) = reverse bestPathA
-              | otherwise                                              = reverse bestPathB
-              where (bestPathA,bestPathB) = foldl roadStep ([],[]) roadSystem
+              | sum ( map snd bestPathA ) <= sum ( map snd bestPathB ) && sum ( map snd bestPathA ) <= sum ( map snd bestPathD ) = reverse bestPathA
+              | sum ( map snd bestPathB ) <= sum ( map snd bestPathA ) && sum ( map snd bestPathB ) <= sum ( map snd bestPathD ) = reverse bestPathB               
+              | otherwise                                              = reverse bestPathD             
+              where (bestPathA,bestPathB,bestPathD) = foldl roadStep ([],[],[]) roadSystem
 
-roadStep :: (Path,Path) -> Section -> (Path,Path)
-roadStep (pathA,pathB) (Section a b c) = (newPathA,newPathB)
+roadStep :: (Path,Path,Path) -> Section -> (Path,Path,Path)
+roadStep (pathA,pathB,pathD) (Section a b d c1 c2) = (newPathA,newPathB,newPathD)
     where timeA = sum $ map snd pathA
           timeB = sum $ map snd pathB
+          timeD = sum $ map snd pathD
 
           forwardTimeToA = timeA + a
-          crossTimeToA   = timeB + b + c
+          crossTimeToA   = timeB + b + c1
 
           forwardTimeToB = timeB + b
-          crossTimeToB   = timeA + a + c
+          crossTimeToB   = timeA + a + c1
+          crossTimeToB'  = timeD + d + c2
+
+          forwardTimeToD = timeD + d
+          crossTimeToD	 = timeB + b + c2
 
           newPathA = if forwardTimeToA <= crossTimeToA
                         then (A,a):pathA
-                        else (C,c):(B,b):pathB
+                        else (C1,c1):(B,b):pathB
 
-          newPathB = if forwardTimeToB <= crossTimeToB
+          newPathB = if forwardTimeToB <= crossTimeToB && forwardTimeToB <= crossTimeToB'
                         then (B,b):pathB
-                        else (C,c):(A,a):pathA
+                        else if crossTimeToB <= crossTimeToB'
+                        		then (C1,c1):(A,a):pathA
+                        		else (C2,c2):(D,d):pathD
+
+          newPathD = if forwardTimeToD <= crossTimeToD
+          				then (D,d):pathD
+          				else (C2,c2):(B,b):pathB
