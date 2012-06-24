@@ -19,6 +19,7 @@ analysis on the encoded text and tries to figure out some of the letters.
 It then uses a brute-force method to complete the task.
 
 -}
+import Data.List
 import qualified Data.Map as Map
 import Data.Char
 
