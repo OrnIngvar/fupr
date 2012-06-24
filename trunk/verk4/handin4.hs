@@ -108,6 +108,7 @@ type RoadSystem = [Section] where Section contains five integers,
 the lengths of A,B,D,E,C1,C2,C3,C4 respectively.-}
 --Exercise 4
 --a)
+{-
 data Section = Section { getA :: Int, getB :: Int, getD :: Int, getC1 :: Int, getC2 :: Int } deriving (Show)
 type RoadSystem = [Section]
 
@@ -153,7 +154,7 @@ roadStep (pathA,pathB,pathD) (Section a b d c1 c2) = (newPathA,newPathB,newPathD
           newPathD = if forwardTimeToD <= crossTimeToD
           				then (D,d):pathD
           				else (C2,c2):(B,b):pathB
-                      
+ -}                     
 --b) Will not compile unless a) is commented out !!
 data Section = Section { getA :: Int, getB :: Int, getD :: Int, getE :: Int, getC1 :: Int, getC2 :: Int, getC3 :: Int, getC4 :: Int } deriving (Show)
 type RoadSystem = [Section]
