@@ -37,7 +37,7 @@ toPercentage xs = [(fst x, snd x / total * 100)| x <- xs]
 
 totalLetters s = sum [snd x | x <- s]
 
-mapToFreqTable xs = [ (fst y, snd y) | x <- xs, y <- freqTable]
+mapToFreqTable xs = [ (fst x, snd x) | x <- xs]
 
 -- usage: mapToFreqTable $ toPercentage $ wordFreq $ encode 2 "helloworld"
 {-
@@ -68,6 +68,10 @@ the queue and then it is emptied. Then use queue to implement queueSort
 which sorts a list by use of repeated application of queue.
 queue :: (Ord a) => [a] -> [a]
 queueSort :: (Ord a) => [a] -> [a]-}
+
+queue :: (Ord a) => [a] -> [a]
+queue [] = []
+queue (x:xs) = xs ++ [x]
 
 {-Exercise 3 (Extending the Reverse Polish Notation Calculator)
 Extend the function solveRPN from Chapter 10 in the book to accept more
