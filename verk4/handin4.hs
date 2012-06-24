@@ -18,6 +18,30 @@ form [(a,0.2),(e,0.14),: : : ]. Your program then does a frequency
 analysis on the encoded text and tries to figure out some of the letters.
 It then uses a brute-force method to complete the task.
 
+-}
+import qualified Data.Map as Map
+import Data.Char
+
+freqTable :: [(Char, Float)]
+freqTable = [('a',8.2), ('b',1.5), ('c',2.8), ('d',4.3), ('e',12.7), ('f', 2.2), ('g', 2.0), ('h',6.1), ('i',7.0), ('j',0.2), ('k',0.8), ('l',4.0), ('m',2.4),  ('n',6.7), ('o',7.5), ('p',2.0), ('q',0.1), ('r',6.0), ('s',6.3), ('t',9.1), ('u',2.8), ('v',1.0), ('w',2.4), ('x',0.2), ('y',2.0), ('z',0.1)]  
+
+-- TODO: Taka út shift á blili
+encode :: Int -> String -> String
+encode shift msg = map chr $ map (+shift) $ map ord msg
+
+-- TODO: Ekki taka prósentur á blili
+wordFreq msg = Map.toList $ Map.fromListWith (+) [(toLower c, 1) | c <- msg]
+
+toPercentage xs = [(fst x, snd x / total * 100)| x <- xs]
+                   where total = totalLetters xs
+
+totalLetters s = sum [snd x | x <- s]
+
+mapToFreqTable xs = [ (fst y, snd y) | x <- xs, y <- freqTable]
+
+-- usage: freqTable $ toPercentage $ wordFreq $ encode 2 "helloworld" 
+{-
+
 b) Assume that the encoded text contains common words such as “is”, “and”,
 “or”, “hamster” (just kidding). Use this information first, then use a
 brute-force method to complete the task.-}
