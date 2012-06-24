@@ -124,3 +124,74 @@ roadStep (pathA,pathB,pathD) (Section a b d c1 c2) = (newPathA,newPathB,newPathD
           newPathD = if forwardTimeToD <= crossTimeToD
           				then (D,d):pathD
           				else (C2,c2):(B,b):pathB
+                      
+--b) Will not compile unless a) is commented out !!
+data Section = Section { getA :: Int, getB :: Int, getD :: Int, getE :: Int, getC1 :: Int, getC2 :: Int, getC3 :: Int, getC4 :: Int } deriving (Show)
+type RoadSystem = [Section]
+
+heathrowToLondon :: RoadSystem
+heathrowToLondon = [ Section 15 30 40 35 20 10 15 10, Section 75 85 65 45 30 20 15 25, Section 45 30 50 55 10 20 15 25, Section 35 55 20 40 0 0 0 0]
+
+data Label = A | B | D | E | C1 | C2 | C3 | C4 deriving (Show)
+type Path = [(Label,Int)]
+
+optimalPath :: RoadSystem -> Path
+optimalPath roadSystem
+              | sum ( map snd bestPathA ) <= sum ( map snd bestPathB ) 
+              	&& sum ( map snd bestPathA ) <= sum ( map snd bestPathD )
+              	&& sum ( map snd bestPathA ) <= sum ( map snd bestPathE ) = reverse bestPathA
+              | sum ( map snd bestPathB ) <= sum ( map snd bestPathA ) 
+              	&& sum ( map snd bestPathB ) <= sum ( map snd bestPathD )
+              	&& sum ( map snd bestPathB) <= sum ( map snd bestPathE ) = reverse bestPathB               
+              | sum ( map snd bestPathD ) <= sum ( map snd bestPathA ) 
+              	&& sum ( map snd bestPathD ) <= sum ( map snd bestPathB )
+              	&& sum ( map snd bestPathD) <= sum ( map snd bestPathE ) = reverse bestPathD
+              | otherwise                                              = reverse bestPathE
+              where (bestPathA,bestPathB,bestPathD,bestPathE) = foldl roadStep ([],[],[],[]) roadSystem
+
+roadStep :: (Path,Path,Path,Path) -> Section -> (Path,Path,Path,Path)
+roadStep (pathA,pathB,pathD,pathE) (Section a b d e c1 c2 c3 c4) = (newPathA,newPathB,newPathD,newPathE)
+    where timeA = sum $ map snd pathA
+          timeB = sum $ map snd pathB
+          timeD = sum $ map snd pathD
+          timeE = sum $ map snd pathE
+
+          forwardTimeToA = timeA + a
+          crossTimeToA   = timeB + b + c1
+          crossTimeToA'  = timeE + e + c4
+
+          forwardTimeToB = timeB + b
+          crossTimeToB   = timeA + a + c1
+          crossTimeToB'  = timeD + d + c2
+
+          forwardTimeToD = timeD + d
+          crossTimeToD	 = timeB + b + c2
+          crossTimeToD'	 = timeE + e + c3
+
+          forwardTimeToE = timeE + e
+          crossTimeToE	 = timeD + d + c3
+          crossTimeToE'	 = timeA + a + c4
+
+          newPathA = if forwardTimeToA <= crossTimeToA && forwardTimeToA <= crossTimeToA'
+                        then (A,a):pathA
+                        else if crossTimeToA <= crossTimeToA' 
+                        		then (C1,c1):(B,b):pathB
+                        		else (C4,c4):(E,e):pathE
+
+          newPathB = if forwardTimeToB <= crossTimeToB && forwardTimeToB <= crossTimeToB'
+                        then (B,b):pathB
+                        else if crossTimeToB <= crossTimeToB'
+                        		then (C1,c1):(A,a):pathA
+                        		else (C2,c2):(D,d):pathD
+
+          newPathD = if forwardTimeToD <= crossTimeToD && forwardTimeToD <= crossTimeToD'
+          				then (D,d):pathD
+          				else if crossTimeToD <= crossTimeToD'
+          						then (C2,c2):(B,b):pathB
+          						else (C3,c3):(E,e):pathE
+
+          newPathE = if forwardTimeToE <= crossTimeToE && forwardTimeToE <= crossTimeToE'
+          				then (E,e):pathE
+          				else if crossTimeToE <= crossTimeToE'
+          						then (C3,c3):(D,d):pathD
+          						else (C4,c4):(A,a):pathA
