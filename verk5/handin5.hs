@@ -1,0 +1,2 @@
+-- Authors: Davíð Halldór Lúðvíksson and Örn Ingvar Ásbjörnsson
+-- Handin 5
