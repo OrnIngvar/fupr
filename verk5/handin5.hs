@@ -1,5 +1,31 @@
 -- Authors: Davíð Halldór Lúðvíksson and Örn Ingvar Ásbjörnsson
 -- Handin 5
+
+{-Exercise 2 (Adding logging to your code)
+Use what you learned in Chapter 13 to add logging to code you have written
+previously. Pick one of the sorting functions that you have seen: bubble,
+stackBubble, queue or quick sort. If you really want to do this for some
+other code you have written, you can do that instead, if it creates some fancy
+logs.-}
+
+--two patterns are in place so if the input is an empty list an empty list is returned
+-- the second pattern takes care of a list with only one value and returns it directly
+--with a list with more then one value the following is done
+--the first two values of the list are compared and the lower value is prepended to the
+-- recursive call of stackBubble with the max of the first two values prepended to the
+--tail of the list
+stackBubble [] = []
+stackBubble (x:[]) = [x]
+stackBubble (x:y:xs) = (min x y) : (stackBubble ((max x y):xs))
+
+--stacksort uses guards to first check if the x equals the tail which and if so returns the tail
+--the otherwise part of the guard recursively calls itself with the tail where the tail is the
+--calling of stackBubble with x
+stackSort x
+        | x == xs = xs
+        | otherwise = stackSort xs
+        where xs = stackBubble x
+
 {-
 Exercise 3 (Physics)
 Implement a very basic physics engine in the following manner: The system will consist of particles in a 
