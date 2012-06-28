@@ -34,9 +34,7 @@ stackSort x
           tell ["Calling recursively to stackSort, list value: "++ show xs]
           stackSort xs 
           where xs = stackBubble x
-
-
-
+-- Example input: runWriter $ stackSort [3,4,5,2,1]
 {-
 Exercise 3 (Physics)
 Implement a very basic physics engine in the following manner: The system will consist of particles in a 
