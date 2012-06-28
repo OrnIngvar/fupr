@@ -1,6 +1,9 @@
 -- Authors: Davíð Halldór Lúðvíksson and Örn Ingvar Ásbjörnsson
 -- Handin 5
 
+import Control.Monad
+import Control.Monad.Writer
+
 {-Exercise 2 (Adding logging to your code)
 Use what you learned in Chapter 13 to add logging to code you have written
 previously. Pick one of the sorting functions that you have seen: bubble,
@@ -21,10 +24,18 @@ stackBubble (x:y:xs) = (min x y) : (stackBubble ((max x y):xs))
 --stacksort uses guards to first check if the x equals the tail which and if so returns the tail
 --the otherwise part of the guard recursively calls itself with the tail where the tail is the
 --calling of stackBubble with x
+
+stackSort :: Show a => Ord a => [a] -> Writer [String] [a]
 stackSort x
-        | x == xs = xs
-        | otherwise = stackSort xs
-        where xs = stackBubble x
+        | x == xs = do
+          tell ["Final step, list value: "++ show x]
+          return x
+        | otherwise = do
+          tell ["Calling recursively to stackSort, list value: "++ show xs]
+          stackSort xs 
+          where xs = stackBubble x
+
+
 
 {-
 Exercise 3 (Physics)
@@ -50,15 +61,15 @@ d) (For bonus points) Give each particle a mass and use the law of preser- vatio
 what happens during collisions (if you want you don’t have to assume friction in the system here).
 e) (For lots of bonus points) Display graphics!
 -}
-data Speed = Speed v | h
-type Identity = Int
-type Location = Int
-type Particle = (Identity,Location,Speed)
-type PhysicsSystem = [Particle]
+--data Speed = Speed v | h
+--type Identity = Int
+--type Location = Int
+--type Particle = (Identity,Location,Speed)
+--type PhysicsSystem = [Particle]
 
-myPhysicsSystem = [(1,-1,h),(2,3,v),(3,5,h)]
+--myPhysicsSystem = [(1,-1,h),(2,3,v),(3,5,h)]
 
-evolve :: PhysicsSystem -> PhysicsSystem
+--evolve :: PhysicsSystem -> PhysicsSystem
 --TODO scan over each particle in system and implement +1 step for h and -1 step for v
 --TODO implement a way to compare each particles location to others to detect collision
 
@@ -76,8 +87,8 @@ father-mother-mother-father-mother will return the mother of the father of the m
 of the father of the given mink, if it exists. 
 Hint: Use foldl.
 -}
-minkFather :: Mink -> Maybe Mink
+--minkFather :: Mink -> Maybe Mink
 
-minkMother :: Mink -> Maybe Mink
+--minkMother :: Mink -> Maybe Mink
 
 --Todo: Create type Mink
