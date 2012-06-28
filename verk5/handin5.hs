@@ -59,16 +59,54 @@ d) (For bonus points) Give each particle a mass and use the law of preser- vatio
 what happens during collisions (if you want you don’t have to assume friction in the system here).
 e) (For lots of bonus points) Display graphics!
 -}
---data Speed = Speed v | h
---type Identity = Int
---type Location = Int
---type Particle = (Identity,Location,Speed)
---type PhysicsSystem = [Particle]
+data Speed = V | H
+type Identity = Int
+type Location = Int
+type Particle = (Identity,Location,Speed)
+type PhysicsSystem = [Particle]
 
---myPhysicsSystem = [(1,-1,h),(2,3,v),(3,5,h)]
+myPhysicsSystem = [(1,-1,H),(2,3,V),(3,5,H)]
 
---evolve :: PhysicsSystem -> PhysicsSystem
 --TODO scan over each particle in system and implement +1 step for h and -1 step for v
+getSpeed :: Speed -> Int
+getSpeed H = 1
+getSpeed V = -1
+
+--getSpeed' :: Particle -> Particle
+--getSpeed'  = True 
+--getSpeed' (Identity, Location, V) = True
+
+--lockerLookup :: Int -> LockerMap -> Either String Code  
+--getSpeed'' :: Particle -> Particle
+--getSpeed'' (id, loc, speed) = if speed == H
+--								then getSpeed' speed
+--								else getSpeed' speed
+{-  
+    case Map.lookup lockerNumber map of   
+        Nothing -> Left $ "Locker number " ++ show lockerNumber ++ " doesn't exist!"  
+        Just (state, code) -> if state /= Taken   
+                                then Right code  
+                                else Left $ "Locker " ++ show lockerNumber ++ " is already taken!"
+-}
+--getLocation :: Location -> Int
+--getLocation i = i
+--partEvolve :: Particle -> [Char]
+--partEvolve p = getSpeed' p
+			-- | getSpeed /= "v" = "h"
+			-- | otherwise 	  = "v"
+--evolve :: PhysicsSystem -> PhysicsSystem
+--evolve system = newSystem
+--	where partLoc = map snd system
+--physicsSystem = particleSolver []
+--	where functionSolver (i:l:s:xs)  
+
+--			| map snd particleA /= map snd particleB 
+--			  &&  = 
+
+--evolve xs = map (getSpeed) xs
+-- | getSpeed system H = ( (getLocation system) +1 )
+-- | otherwise	 = ( (getLocation system) -1 )
+
 --TODO implement a way to compare each particles location to others to detect collision
 
 {-
