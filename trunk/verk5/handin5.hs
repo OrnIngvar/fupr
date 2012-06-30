@@ -59,7 +59,7 @@ d) (For bonus points) Give each particle a mass and use the law of preser- vatio
 what happens during collisions (if you want you don’t have to assume friction in the system here).
 e) (For lots of bonus points) Display graphics!
 -}
-data Speed = V | H
+data Speed = V | H deriving Show
 type Identity = Int
 type Location = Int
 type Particle = (Identity,Location,Speed)
@@ -71,6 +71,8 @@ myPhysicsSystem = [(1,-1,H),(2,3,V),(3,5,H)]
 getSpeed :: Speed -> Int
 getSpeed H = 1
 getSpeed V = -1
+
+evovle physicsSystem = [(x) | x <- physicsSystem]
 
 --getSpeed' :: Particle -> Particle
 --getSpeed'  = True 
@@ -123,8 +125,23 @@ father-mother-mother-father-mother will return the mother of the father of the m
 of the father of the given mink, if it exists. 
 Hint: Use foldl.
 -}
+
+--Todo: Create type Mink
+
+data Mink a = Empty | Parent a (Mink a) (Mink a) deriving (Show, Read, Eq) 
+
 --minkFather :: Mink -> Maybe Mink
+--minkFather mink |  k
+--                | otherwise = Nothing 
 
 --minkMother :: Mink -> Maybe Mink
 
---Todo: Create type Mink
+testTree = Parent "Father"  
+            (Parent "Mother"  
+                (Parent "Child" Empty Empty)  
+                (Parent "Child" Empty Empty)  
+            )  
+            (Parent "Mother"  
+                (Parent "Child" Empty Empty)  
+                (Parent "Child" Empty Empty)  
+            )
