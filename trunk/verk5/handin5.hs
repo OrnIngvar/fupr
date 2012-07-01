@@ -59,7 +59,7 @@ d) (For bonus points) Give each particle a mass and use the law of preser- vatio
 what happens during collisions (if you want you don’t have to assume friction in the system here).
 e) (For lots of bonus points) Display graphics!
 -}
-data Speed = V | H deriving Show
+data Speed = V | H
 type Identity = Int
 type Location = Int
 type Particle = (Identity,Location,Speed)
@@ -72,44 +72,23 @@ getSpeed :: Speed -> Int
 getSpeed H = 1
 getSpeed V = -1
 
-evovle physicsSystem = [(x) | x <- physicsSystem]
+getSpeed' :: Particle -> Speed
+getSpeed' (_,_,s) = s 
 
---getSpeed' :: Particle -> Particle
---getSpeed'  = True 
---getSpeed' (Identity, Location, V) = True
+--setLocation :: Particle -> Speed -> Particle
+--getLocation (i,l,s) s = if getSpeed s /= H
+--  then part
 
---lockerLookup :: Int -> LockerMap -> Either String Code  
---getSpeed'' :: Particle -> Particle
---getSpeed'' (id, loc, speed) = if speed == H
---								then getSpeed' speed
---								else getSpeed' speed
-{-  
-    case Map.lookup lockerNumber map of   
-        Nothing -> Left $ "Locker number " ++ show lockerNumber ++ " doesn't exist!"  
-        Just (state, code) -> if state /= Taken   
-                                then Right code  
-                                else Left $ "Locker " ++ show lockerNumber ++ " is already taken!"
--}
---getLocation :: Location -> Int
---getLocation i = i
---partEvolve :: Particle -> [Char]
---partEvolve p = getSpeed' p
-			-- | getSpeed /= "v" = "h"
-			-- | otherwise 	  = "v"
+setLocation' :: Particle -> Int -> Particle
+setLocation' (id,l,s) x = (id, l + x, s)
+
+--getSpeed'' :: PhysicsSystem -> Particle
+--getSpeed'' xs = map getSpeed' 
+
 --evolve :: PhysicsSystem -> PhysicsSystem
---evolve system = newSystem
---	where partLoc = map snd system
---physicsSystem = particleSolver []
---	where functionSolver (i:l:s:xs)  
-
---			| map snd particleA /= map snd particleB 
---			  &&  = 
-
---evolve xs = map (getSpeed) xs
--- | getSpeed system H = ( (getLocation system) +1 )
--- | otherwise	 = ( (getLocation system) -1 )
-
---TODO implement a way to compare each particles location to others to detect collision
+--evolve x:xs = if getSpeed' x /= H 
+--              then setLocation x 1
+--              else setLocation x -1
 
 {-
 Exercise 4 (Cloning Minks)
