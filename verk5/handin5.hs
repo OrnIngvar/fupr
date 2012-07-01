@@ -106,6 +106,9 @@ Hint: Use foldl.
 -}
 
 --Todo: Create type Mink
+--data List a = Empty | Link a (List a) deriving (Show, Read, Eq)
+--type Mink = List
+
 data Parent = Father | Mother deriving (Show, Read, Eq)
 type Mink = Parent 
 
@@ -137,5 +140,6 @@ minkMother mink
 
 --testMink1 = Empty
 
-testMink2 = Father
+--testMink2 = Father
+--minkFather Father >>= minkFather >>= minkMother
           
