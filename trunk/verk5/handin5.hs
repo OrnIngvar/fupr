@@ -90,6 +90,28 @@ setLocation' (id,l,s) x = (id, l + x, s)
 --              then setLocation x 1
 --              else setLocation x -1
 
+--getLocation :: Location -> Int
+--getLocation i = i
+--partEvolve :: Particle -> [Char]
+--partEvolve p = getSpeed' p
+			-- | getSpeed /= "v" = "h"
+			-- | otherwise 	  = "v"
+--evolve :: PhysicsSystem -> PhysicsSystem
+--evolve (_ _ s ) = if s /= H 
+--                  then 
+
+--evolve' :: Particle -> Particle
+--evolve' (i, l, s) = if s = H 
+--                  then (i, l+1, s)
+--                  else (i, l-1, s)
+
+--	where partLoc = map snd system
+--physicsSystem = particleSolver []
+--	where functionSolver (i:l:s:xs)  
+
+--			| map snd particleA /= map snd particleB 
+--			  &&  = 
+
 {-
 Exercise 4 (Cloning Minks)
 You involved in illegal experiments with cloning minks. To keep track of your flock of minks you need to 
