@@ -127,21 +127,31 @@ Hint: Use foldl.
 -}
 
 --Todo: Create type Mink
+data Parent = Father | Mother deriving (Show)
 
-data Mink a = Empty | Parent a (Mink a) (Mink a) deriving (Show, Read, Eq) 
+data Mink a = Empty | Mink a (Mink a) (Mink a) deriving (Show, Read, Eq) 
 
 --minkFather :: Mink -> Maybe Mink
---minkFather mink |  k
---                | otherwise = Nothing 
 
 --minkMother :: Mink -> Maybe Mink
 
-testTree = Parent "Father"  
-            (Parent "Mother"  
-                (Parent "Child" Empty Empty)  
-                (Parent "Child" Empty Empty)  
-            )  
-            (Parent "Mother"  
-                (Parent "Child" Empty Empty)  
-                (Parent "Child" Empty Empty)  
-            )
+--testFamily = Parent "Father"  
+--            (Parent "Mother"  
+--                (Parent "Child" Empty Empty)  
+--                (Parent "Child" Empty Empty)  
+--            )  
+--            (Parent "Mother"  
+--                (Parent "Child" Empty Empty)  
+--                (Parent "Child" Empty Empty)  
+--            )
+
+--testMink = Parent "Father"
+--            (Parent "Child" Empty Empty)
+--            (Parent "Child" Empty Empty)
+
+--testMink1 = Empty
+
+testMink2 = Mink Father Empty Empty
+
+testMink3 = Mink Mother Empty Empty
+          
